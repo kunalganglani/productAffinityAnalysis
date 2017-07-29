@@ -355,7 +355,7 @@ function heatmap_display(url, heatmapId, paletteName) {
                 });
 
         }
-        if (numOfCells <= 10) {
+        if (numOfCells <= 1000) {
             proceedAnyway();
         } else {
             bootbox.dialog({
