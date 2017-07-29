@@ -15,9 +15,14 @@
 <head>
 
 <script>
-$(document).ready(function() {
-	heatmap_display("metrics_ocmip5.json", "#heatmap", "Spectral");
-});
+// $(document).ready(function() {
+// 	heatmap_display("metrics_ocmip5.json", "#heatmap", "Spectral");
+// });
+
+function generateGraph(){
+    $("#heatmap").html('');
+    heatmap_display("metrics_ocmip5.json", "#heatmap", "Spectral");
+}
 </script>
 
 </head>
@@ -48,7 +53,9 @@ Select your Color Palette:
 
 Search by Product Name
 <input id="productNameInput" type="text"/>
-<div id="heatmap"></div>
 
+
+<button type="button" class="btn btn-primary" onclick="generateGraph()">Go</button>
+<div id="heatmap"></div>
 </body>
 </html>

@@ -49,10 +49,11 @@ function heatmap_display(url, heatmapId, paletteName) {
 
     //==================================================
     d3.json(url, function (error, data) {
+        var prodName= $("#productNameInput").val().toLowerCase();
         var j = 0,
             finalData = [];
         data.index = data.index.filter(function (row) {
-            var decide = row[0].toLowerCase().indexOf("UV".toLowerCase()) !== -1;
+            var decide = row[0].toLowerCase().indexOf(prodName) !== -1;
             if (decide) {
                 finalData.push(data.data[j]);
             }
