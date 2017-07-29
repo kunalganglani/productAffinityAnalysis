@@ -4,6 +4,9 @@
 <head>
     <meta charset="utf-8">
     <style>
+        svg{
+            width: 100%;
+        }
         .axis path,
         .axis line {
             fill: none;
@@ -20,16 +23,15 @@
 
 <body>
 
-    <div class="heatmap"></div>
+    <div class="heatmap"></div> 
     <button id="generate">Save as SVG</button>
 
-<!-- http://bl.ocks.org/wboykinm/e6e222d71e9b59e8b3053e0c4fe83daf -->
+    <!-- http://bl.ocks.org/wboykinm/e6e222d71e9b59e8b3053e0c4fe83daf -->
     <script src="https://d3js.org/d3.v3.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-     <script src="../js/Blob.js"></script> 
-<script src="https://fastcdn.org/FileSaver.js/1.1.20151003/FileSaver.min.js"></script>
+    <script src="../js/Blob.js"></script>
+    <script src="https://fastcdn.org/FileSaver.js/1.1.20151003/FileSaver.min.js"></script>
     <script>
-
         var itemSize = 22,
             cellSize = itemSize - 1,
             margin = {
@@ -45,6 +47,10 @@
         var formatDate = d3.time.format("%Y-%m-%d");
 
         d3.csv('../data.csv', function (response) {
+                  response = response.filter(function(row) {
+                    //   debugger;
+        return true;//row['x'] == 'France' || row['x'] == 'Spain';
+                  });
 
             var data = response.map(function (item) {
                 var newItem = {};
@@ -131,27 +137,30 @@
         });
     </script>
 
-<script>
-    d3.select("#generate")
-    .on("click", writeDownloadLink);
+<!-- save as image -->
+    <script>
+        d3.select("#generate")
+            .on("click", writeDownloadLink);
 
-  function writeDownloadLink(){
-    try {
-        var isFileSaverSupported = !!new Blob();
-    } catch (e) {
-        alert("blob not supported");
-    }
+        function writeDownloadLink() {
+            try {
+                var isFileSaverSupported = !!new Blob();
+            } catch (e) {
+                alert("blob not supported");
+            }
 
-    var html = d3.select("svg")
-        .attr("title", "test2")
-        .attr("version", 1.1)
-        .attr("xmlns", "http://www.w3.org/2000/svg")
-        .node().parentNode.innerHTML;
+            var html = d3.select("svg")
+                .attr("title", "test2")
+                .attr("version", 1.1)
+                .attr("xmlns", "http://www.w3.org/2000/svg")
+                .node().parentNode.innerHTML;
 
-    var blob = new Blob([html], {type: "image/svg+xml"});
-    saveAs(blob, "myProfile.svg");
-};
-  </script>
+            var blob = new Blob([html], {
+                type: "image/svg+xml"
+            });
+            saveAs(blob, "myProfile.svg");
+        };
+    </script>
 
 
 </body>
