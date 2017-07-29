@@ -26,27 +26,47 @@
 
 <body>
     <table id="example" class="display nowrap" cellspacing="0" width="100%">
-        <!-- <thead>
+        <thead>
             <tr>
                 <th>Base Product</th>
+                <th>Base Support Count</th>
+                <th>Base Support %</th>
+                <th>Target Product</th>
+                <th>Target Support Count</th>
+                <th>Target Support %</th>
+                <th>Join Support Count (Base and Target)</th>
+                <th>Joint Support % (Base and Target)</th>
+                <th>Confidence % (Base and Targe)</th>
+                <th>Confidence % (Target and Base)</th>
+                <th>Lift</th>
                 <th> Affinity</th>
             </tr>
-        </thead> -->
+        </thead>
     </table>
 </body>
 <script>
-    var data;
-
-    function getMyData(callback) {
-        $.getJSON("http://192.168.13.76:8080/hackathon/affinity", function (result) {
-            data = result;
-            callback(data);
-        });
-    }
-
-    function callback() {
+    $(document).ready(function () {
         $('#example').DataTable({
-            data: data,
+            serverSide: true,
+            ordering: false,
+            searching: false,
+            ajax: function (data, callback, settings) {
+                var out = [];
+                for (var i = data.start, ien = data.start + data.length; i < ien; i++) {
+                    out.push([i + '-1', i + '-2', i + '-3', i + '-4', i + '-5', i + '-6', i + '-7',
+                        i + '-8', i + '-9', i + '-10', i + '-11', i + '-12'
+                    ]);
+                }
+
+                setTimeout(function () {
+                    callback({
+                        draw: data.draw,
+                        data: out,
+                        recordsTotal: 160421,
+                        recordsFiltered: 160421
+                    });
+                }, 50);
+            },
             scrollY: 600,
             scrollX: true,
             scrollCollapse: true,
@@ -54,20 +74,13 @@
             buttons: [
                 'copy', 'csv', 'excel', 'pdf', 'print'
             ],
-            columns: [{
-                    title: "Base Product"
-                },
-                {
-                    title: "Affinity"
-                }
-            ]
-
+            /* fixedColumns:   {
+                leftColumns: 2
+            }, */
+            scroller: {
+                loadingIndicator: true
+            }
         });
-    }
-    $(document).ready(function () {
-        getMyData(callback);
-
-
     });
 </script>
 
