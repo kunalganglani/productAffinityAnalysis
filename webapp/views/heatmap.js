@@ -62,7 +62,7 @@ function heatmap_display(url, heatmapId, paletteName) {
         });
         data.data = finalData;
         var numOfCells = data.data.length * data.columns.length;
-        if (numOfCells <= 10) {
+        function proceedAnyway(){
 
 
 
@@ -324,10 +324,14 @@ function heatmap_display(url, heatmapId, paletteName) {
                     var newPalette = d3.select("#palette").property("value");
                     changePalette(newPalette, heatmapId);
                 });
+        
+        }
+        if (numOfCells <= 1000) {
+            proceedAnyway();
         } else {
             bootbox.dialog({
-                message: "I am a custom dialog",
-                title: "Custom title",
+                message: "We may not be able to show all the values neatly with the current filters applied. Please make your decsion.",
+                title: "Alert! (Number of Cells are more than 1000",
                 onEscape: function () {},
                 show: true,
                 backdrop: true,
@@ -336,11 +340,11 @@ function heatmap_display(url, heatmapId, paletteName) {
                 className: "my-modal",
                 buttons: {
                     success: {
-                        label: "Success!",
+                        label: "Proceed!",
                         className: "btn-success",
-                        callback: function () {}
+                        callback: proceedAnyway
                     },
-                    "Danger!": {
+                    "Cancel!": {
                         className: "btn-danger",
                         callback: function () {}
                     }
