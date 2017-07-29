@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.concurrent.ForkJoinPool;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,6 +18,7 @@ import com.hackathon.utils.ProductWriter;
 import com.hackathon.utils.ReadingProductTask;
 import com.hackathon.utils.ReadingTask;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class SampleController {
 	
@@ -45,9 +47,17 @@ public class SampleController {
 		return list;
 	}
 	
-	@RequestMapping(value = "/group/invoice")
-	public Map<String, List<String>> getInvoiceGroups() throws Exception {
-		return productInfo.getFinalMap();
+	@RequestMapping(value = "/affinity")
+	public List<List<String>> affinityChange() throws Exception {
+		Map<String, Double> affinity = productInfo.productSupportCount();
+		List<List<String>> list = new ArrayList<>();
+		for (String key: affinity.keySet()) {
+			List<String> subList = new ArrayList<>();
+			subList.add(key);
+			subList.add(String.valueOf(affinity.get(key)));
+			list.add(subList);
+		}
+		return list;
 	}
 	
 	@RequestMapping(value = "/products")
