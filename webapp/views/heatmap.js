@@ -1,9 +1,36 @@
 var classesNumber = 10,
     cellSize = 24;
 
+
 //#########################################################
 function heatmap_display(url, heatmapId, paletteName) {
 
+    d3.select("#generate")
+        .on("click", writeDownloadLink);
+
+    function writeDownloadLink() {
+        debugger;
+        try {
+            var isFileSaverSupported = !!new Blob();
+        } catch (e) {
+            alert("blob not supported");
+        }
+
+        var html = d3.select("svg")
+            .attr("title", "test2")
+            .attr("version", 1.1)
+            .attr("xmlns", "http://www.w3.org/2000/svg")
+            .node().parentNode.innerHTML;
+
+        if (html.indexOf("</div>") !== -1) {
+            html = html.substr(html.indexOf("</div>") + 6, html.length);
+        }
+
+        var blob = new Blob([html], {
+            type: "image/svg+xml"
+        });
+        saveAs(blob, "myProfile.svg");
+    };
 
     //##########################################################################
     // Patrick.Brockmann@lsce.ipsl.fr
@@ -49,7 +76,7 @@ function heatmap_display(url, heatmapId, paletteName) {
 
     //==================================================
     d3.json(url, function (error, data) {
-        var prodName= $("#productNameInput").val().toLowerCase();
+        var prodName = $("#productNameInput").val().toLowerCase();
         var j = 0,
             finalData = [];
         data.index = data.index.filter(function (row) {
@@ -63,7 +90,8 @@ function heatmap_display(url, heatmapId, paletteName) {
         });
         data.data = finalData;
         var numOfCells = data.data.length * data.columns.length;
-        function proceedAnyway(){
+
+        function proceedAnyway() {
 
 
 
@@ -325,7 +353,7 @@ function heatmap_display(url, heatmapId, paletteName) {
                     var newPalette = d3.select("#palette").property("value");
                     changePalette(newPalette, heatmapId);
                 });
-        
+
         }
         if (numOfCells <= 1000) {
             proceedAnyway();
