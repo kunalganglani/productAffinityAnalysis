@@ -23,7 +23,8 @@ function heatmap_display(url, heatmapId, paletteName) {
             .node().parentNode.innerHTML;
 
         if (html.indexOf("</div>") !== -1) {
-            html = html.substr(html.indexOf("</div>") + 6, html.length);
+            html = html.substr(html.indexOf("<svg"), html.length)
+            //html.substr(html.indexOf("<svg>"), html.length);
         }
 
         var blob = new Blob([html], {
