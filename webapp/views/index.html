@@ -1,65 +1,56 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <html>
-
-<script src="http://d3js.org/d3.v3.js"></script>
-<script src="http://d3js.org/colorbrewer.v1.min.js"></script>
-<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-
-<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.2.0/bootbox.min.js"></script>
-
-<script src="heatmap.js"></script>
-<link rel="stylesheet" href="heatmap.css" />
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
 <head>
-
-<script>
-function generateGraph(){
-    $("#heatmap").html('');
-    heatmap_display("metrics_ocmip5.json", "#heatmap", "Spectral");
-}
-</script>
-
-<!-- save as image -->
-<script src="../js/Blob.js"></script>
-<script src="https://fastcdn.org/FileSaver.js/1.1.20151003/FileSaver.min.js"></script>
-    
-    
-
+<title>Product Affinity Analysis</title>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../css/styles.css"/>
 </head>
-
 <body>
-    <h1>Welcome to Product Affinity Analysis</h1>
-
-<!-- Order:
-<select id="order">
-  <option value="null" selected> ----- </option>
-  <option value="sortinit_col_row">Initial order on columns and rows</option>
-  <option value="sortinit_row">Initial order on rows</option>
-  <option value="sortinit_col">Initial order on columns</option>
-</select>
- -->
-Select your Color Palette:
-<select id="palette">
-  <option value="RdYlGn">RdYlGn</option>
-  <option value="Spectral" selected>Spectral</option>
-  <option value="RdYlBu">RdYlBu</option>
-  <option value="RdGy">RdGy</option>
-  <option value="RdBu">RdBu</option>
-  <option value="PiYG">PiYG</option>
-  <option value="PRGn">PRGn</option>
-  <option value="BrBG">BrBG</option>
-  <option value="PuOr">PuOr</option>
-</select>
-
-Search by Product Name
-<input id="productNameInput" type="text"/>
+<h1> Welcome to Product Afinity Analysis</h1>
 
 
-<button type="button" class="btn btn-primary" onclick="generateGraph()">Go</button>
-<button id="generate" type="button" class="btn btn-primary">Save as SVG</button>
+<div class="container">
+        <div class="row">
+            
+            <div class="col-sm-6 col-md-4 col-lg-3 mt-4">
+                <div class="card">
+                    <img class="card-img-top" src="http://success-at-work.com/wp-content/uploads/2015/04/free-stock-photos.gif">
+                    <div class="card-block">
+                        <h4 class="card-title">Affinity Matrix Tabular Report</h4>
+                        <div class="card-text">
+                        This is an Affinity based Tabular report to help you understand the Affinity of customers towards your Products. 
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-info float-right btn-sm" onclick="document.location.href='http://localhost:8080/webapp/views/main.html'">Go</button>
+                    </div>
+                    
+                </div>
+            </div>
 
-<div id="heatmap"></div>
+            <div class="col-sm-6 col-md-4 col-lg-3 mt-4">
+                <div class="card">
+                    <img class="card-img-top" src="http://success-at-work.com/wp-content/uploads/2015/04/free-stock-photos.gif">
+                    <div class="card-block">
+                        <h4 class="card-title">Affinity Heat Map</h4>
+                        <div class="card-text">
+                        This is an Affinity based Heat map which will help you understand the Afinity for each of your products in the market. 
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-info float-right btn-sm" onclick="document.location.href='http://localhost:8080/webapp/views/data_report_view.html'">Go</button>
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+</div>
+
+
+
 </body>
 </html>
