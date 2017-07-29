@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<Properties>
+		<Property name="log-path">/var/lib/tomcat7/logs</Property>
+		<!-- <Property name="log-path">/home/ubuntu</Property> -->
+	</Properties>
+	<Appenders>
+		<Console name="CONSOLE" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</Console>
+		<RollingFile name="rootFile" fileName="${log-path}/bandipur-logs/bandipur.log"
+			filePattern="${log-path}/bandipur-logs/archived/bandipur-trace-%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+				</pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1"
+					modulate="true" />
+			</Policies>
+		</RollingFile>
+		<RollingFile name="transactionFile" fileName="${log-path}/bandipur-logs/transaction.log"
+			filePattern="${log-path}/bandipur-logs/archived/transaction-trace-%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+				</pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1"
+					modulate="true" />
+			</Policies>
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<Root level="trace">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="rootFile" />
+		</Root>
+		<Root level="TRACE">
+			<AppenderRef ref="CONSOLE" />
+			<AppenderRef ref="rootFile" />
+		</Root>
+		<Logger name="transaction" level="TRACE">
+			<AppenderRef ref="CONSOLE" level="info" />
+			<AppenderRef ref="transactionFile" level="debug" />
+			<AppenderRef ref="transactionFile" level="error" />
+		</Logger>
+		<Logger name="bandipur" level="TRACE">
+			<AppenderRef ref="CONSOLE" level="info" />
+			<AppenderRef ref="rootFile" level="debug" />
+			<AppenderRef ref="rootFile" level="error" />
+		</Logger>
+	</Loggers>
+</Configuration>
